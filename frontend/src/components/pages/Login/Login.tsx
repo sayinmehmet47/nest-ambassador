@@ -19,9 +19,7 @@ export default function Login({}: Props) {
 
       password: Yup.string().max(255).required('Password is required'),
     }),
-    onSubmit: (e: any) => {
-      console.log(formik.values);
-
+    onSubmit: () => {
       try {
         const loginUser = async () => {
           const response = await axios.post('/auth/admin/login', formik.values);

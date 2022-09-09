@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Product } from '../../../models/product';
 import Layout from '../../Layout';
 
@@ -44,6 +45,13 @@ export default function ProductPage({}: Props) {
 
   return (
     <Layout>
+      <NavLink to="/product/create">
+        <div className="mt-2">
+          <Button variant="contained" color="primary">
+            ADD
+          </Button>
+        </div>
+      </NavLink>
       <Table>
         <TableHead>
           <TableRow>

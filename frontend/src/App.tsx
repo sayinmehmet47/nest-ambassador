@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
+import CreateProduct from './components/pages/CreateProduct';
 import Links from './components/pages/Links';
 import Login from './components/pages/Login/Login';
 import ProductPage from './components/pages/Products/Product';
@@ -17,6 +18,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/products" element={<ProductPage />} />
+          <Route path="/product/create" element={<CreateProduct />} />
         </Routes>
       </BrowserRouter>
       ,
