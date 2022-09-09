@@ -8,7 +8,6 @@ import {
   Res,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from './user.entity';
 import { RedisService } from '../shared/redis.service';
 import { Response } from 'express';
 

@@ -18,6 +18,7 @@ import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { Response, Request } from 'express';
+import { UpdateUserDto } from './dtos/updateUser.dto';
 
 @Controller('auth')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -113,21 +114,10 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Put(['admin/users/info', 'ambassador/users/info'])
-  async updateInfo(
-    @Req() request: Request,
-    @Body('first_name') first_name: string,
-    @Body('last_name') last_name: string,
-    @Body('email') email: string,
-  ) {
-    const newUser = {
-      first_name,
-      last_name,
-      email,
-    };
-
+  async updateInfo(@Req() request: Request, @Body() body: UpdateUserDto) {
     const cookie = request.cookies['jwt'];
     const { id } = await this.jwtService.verifyAsync(cookie);
-    await this.userService.update(id, newUser);
+    await this.userService.update(id, body);
     return this.userService.findOne({ id });
   }
 

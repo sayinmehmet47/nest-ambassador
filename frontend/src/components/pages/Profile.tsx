@@ -3,11 +3,14 @@ import axios from 'axios';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import Layout from '../Layout';
 import { User } from '../../models/user';
+import { useGetUserQuery, useUpdateUserMutation } from '../../services/user';
 
 export default function Profile() {
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const { data, error, isLoading } = useGetUserQuery('');
+  const [updateUser, result] = useUpdateUserMutation();
   useEffect(() => {
     (async () => {
       const { data } = await axios.get('/auth/admin/user');
@@ -20,13 +23,25 @@ export default function Profile() {
   const handleSubmitAccount = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    (async () => {
-      const response = await axios.put('/auth/admin/users/info', {
-        first_name,
-        last_name,
-        email,
-      });
-    })();
+    // (async () => {
+    //   const response = await axios.put('/auth/admin/users/info', {
+    //     first_name,
+    //     last_name,
+    //     email,
+    //   });
+    // })();
+
+    // const { data, error, isLoading } = useUpdateUserMutation({
+    //   first_name,
+    //   last_name,
+    //   email,
+    // });
+
+    updateUser({
+      first_name,
+      last_name,
+      email,
+    });
   };
 
   return (
