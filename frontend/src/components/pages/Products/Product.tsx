@@ -10,6 +10,7 @@ import {
   TablePagination,
   TableRow,
 } from '@material-ui/core';
+import { ToggleButtonGroup } from '@material-ui/lab';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -80,13 +81,20 @@ export default function ProductPage({}: Props) {
                   />
                 </TableCell>
                 <TableCell>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => handleDelete(product.id)}
-                  >
-                    Delete
-                  </Button>
+                  <ToggleButtonGroup>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handleDelete(product.id)}
+                    >
+                      Delete
+                    </Button>
+                    <NavLink to={`/product/${product.id}/update`}>
+                      <Button variant="contained" color="primary">
+                        Update
+                      </Button>
+                    </NavLink>
+                  </ToggleButtonGroup>
                 </TableCell>
               </TableRow>
             ))}
