@@ -6,7 +6,7 @@ import { User } from '../../models/user';
 import { useGetUserQuery, useUpdateUserMutation } from '../../services/user';
 
 export default function Profile() {
-  const [first_name, setFirstName] = useState('');
+  const [first_name, setFirstName] = useState('s');
   const [last_name, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const { data, error, isLoading } = useGetUserQuery('');
@@ -22,26 +22,8 @@ export default function Profile() {
 
   const handleSubmitAccount = async (e: SyntheticEvent) => {
     e.preventDefault();
-
-    // (async () => {
-    //   const response = await axios.put('/auth/admin/users/info', {
-    //     first_name,
-    //     last_name,
-    //     email,
-    //   });
-    // })();
-
-    // const { data, error, isLoading } = useUpdateUserMutation({
-    //   first_name,
-    //   last_name,
-    //   email,
-    // });
-
-    updateUser({
-      first_name,
-      last_name,
-      email,
-    });
+    const form = { first_name, last_name, email };
+    updateUser(form).unwrap().then(result =>console.log(result));
   };
 
   return (

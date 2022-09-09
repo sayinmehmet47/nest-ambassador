@@ -17,14 +17,15 @@ export const userApi = createApi({
       query: () => `/auth/admin/user`,
     }),
     updateUser: builder.mutation<User, Partial<User>>({
-      query: (form) => ({
-        url: `/auth/admin/users/info`,
-        method: 'PUT',
-        data: form,
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      }),
+      query(data) {
+        const { ...body } = data;
+
+        return {
+          url: `/auth/admin/users/info`,
+          method: 'PUT',
+          body,
+        };
+      },
     }),
   }),
 });
@@ -32,3 +33,10 @@ export const userApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const { useGetUserQuery, useUpdateUserMutation } = userApi;
+
+// url: `/auth/admin/users/info`,
+// method: 'PUT',
+// data: form,
+// headers: {
+//   'Content-type': 'application/json; charset=UTF-8',
+// },
