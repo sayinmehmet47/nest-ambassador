@@ -11,9 +11,8 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
-import { Order } from '../../models/orders';
-import Layout from '../Layout';
+import Layout from '@/components/Layout';
+import { Order } from '@/models/orders';
 
 type Props = {};
 

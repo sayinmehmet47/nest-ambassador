@@ -14,8 +14,8 @@ import { ToggleButtonGroup } from '@material-ui/lab';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Product } from '../../../models/product';
-import Layout from '../../Layout';
+import { Product } from '@/models/product';
+import Layout from '@/components/Layout';
 
 type Props = {};
 

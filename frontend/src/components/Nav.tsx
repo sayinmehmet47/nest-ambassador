@@ -1,7 +1,6 @@
 import axios from 'axios';
-import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { User } from '../models/user';
+import { User } from '@/models/user';
 
 type Props = {
   user: User | null;
