@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import { User } from '@/models/user';
+
+import { User } from '../models/user';
 
 type Props = {
   user: User | null;
@@ -34,10 +35,7 @@ export default function Nav({ user }: Props) {
           placeholder="Search"
           aria-label="Search"
         ></input>
-        <NavLink
-          to="/profile"
-          className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6"
-        >
+        <NavLink to="/profile" className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">
           {user?.first_name}☠️
           {user?.last_name}
         </NavLink>

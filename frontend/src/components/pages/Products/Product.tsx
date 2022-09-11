@@ -1,7 +1,5 @@
 import {
   Button,
-  CardMedia,
-  ImageListItem,
   Table,
   TableBody,
   TableCell,
@@ -12,17 +10,15 @@ import {
 } from '@material-ui/core';
 import { ToggleButtonGroup } from '@material-ui/lab';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Product } from '@/models/product';
-import Layout from '@/components/Layout';
 
-type Props = {};
+import { Product } from '../../../models/product';
 
-export default function ProductPage({}: Props) {
+export default function ProductPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState(0);
-  const [perPage, setPerPage] = useState(8);
+  const [perPage] = useState(8);
 
   useEffect(() => {
     (async () => {
@@ -45,7 +41,7 @@ export default function ProductPage({}: Props) {
   };
 
   return (
-    <Layout>
+    <Fragment>
       <NavLink to="/product/create">
         <div className="mt-2">
           <Button variant="contained" color="primary">
@@ -64,40 +60,33 @@ export default function ProductPage({}: Props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products
-            .slice(page * perPage, (page + 1) * perPage)
-            .map((product: Product) => (
-              <TableRow>
-                <TableCell>{product.title}</TableCell>
-                <TableCell>{product.description}</TableCell>
-                <TableCell>{product.price}</TableCell>
+          {products.slice(page * perPage, (page + 1) * perPage).map((product: Product) => (
+            <TableRow key={product.id}>
+              <TableCell>{product.title}</TableCell>
+              <TableCell>{product.description}</TableCell>
+              <TableCell>{product.price}</TableCell>
 
-                <TableCell>
-                  <img
-                    src={product.image}
-                    width={80}
-                    height={80}
-                    alt="Paella dish"
-                  />
-                </TableCell>
-                <TableCell>
-                  <ToggleButtonGroup>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => handleDelete(product.id)}
-                    >
-                      Delete
+              <TableCell>
+                <img src={product.image} width={80} height={80} alt="Paella dish" />
+              </TableCell>
+              <TableCell>
+                <ToggleButtonGroup>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => handleDelete(product.id)}
+                  >
+                    Delete
+                  </Button>
+                  <NavLink to={`/product/${product.id}/update`}>
+                    <Button variant="contained" color="primary">
+                      Update
                     </Button>
-                    <NavLink to={`/product/${product.id}/update`}>
-                      <Button variant="contained" color="primary">
-                        Update
-                      </Button>
-                    </NavLink>
-                  </ToggleButtonGroup>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </NavLink>
+                </ToggleButtonGroup>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
         <TableFooter>
           <TablePagination
@@ -109,6 +98,6 @@ export default function ProductPage({}: Props) {
           />
         </TableFooter>
       </Table>
-    </Layout>
+    </Fragment>
   );
 }

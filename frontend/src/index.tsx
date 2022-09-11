@@ -1,17 +1,16 @@
+import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import axios from 'axios';
 import { Provider } from 'react-redux';
+
+import App from './App';
 import { store } from './redux/store';
+import reportWebVitals from './reportWebVitals';
+import './index.css';
 
 axios.defaults.baseURL = 'http://localhost:8000/api';
 axios.defaults.withCredentials = true;
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <Provider store={store}>
     <React.StrictMode>

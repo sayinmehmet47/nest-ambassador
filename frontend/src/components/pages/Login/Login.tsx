@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import './Login.css';
-type Props = {};
 
-export default function Login({}: Props) {
+export default function Login() {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {

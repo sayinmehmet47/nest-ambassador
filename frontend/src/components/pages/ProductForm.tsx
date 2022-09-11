@@ -1,12 +1,11 @@
 import { Button, TextField } from '@material-ui/core';
 import axios from 'axios';
-import { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import Layout from '../Layout';
 
-type Props = {};
-
-export default function ProductForm({}: Props) {
+export default function ProductForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');

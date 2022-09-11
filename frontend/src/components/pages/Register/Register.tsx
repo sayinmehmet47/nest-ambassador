@@ -1,14 +1,10 @@
+import axios from 'axios';
+import { Component, SyntheticEvent } from 'react';
+import { Navigate } from 'react-router-dom';
+
 import './Register.css';
 
-import React, { Component, SyntheticEvent } from 'react';
-import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
-
-type Props = {};
-
-type State = {};
-
-export default class Register extends Component<Props, State> {
+export default class Register extends Component {
   state = {
     first_name: '',
     last_name: '',
@@ -48,49 +44,49 @@ export default class Register extends Component<Props, State> {
         <form onSubmit={this.submit}>
           <h1 className="h3 mb-3 fw-normal">Register</h1>
           <div className="form-floating">
+            <label htmlFor="firstName">First Name</label>
             <input
               type="text"
               className="form-control"
               placeholder="First Name"
-              onChange={(e) => (this.state.first_name = e.target.value)}
+              onChange={(e) => this.setState({ first_name: e.target.value })}
             ></input>
-            <label htmlFor="floatingInput">First Name</label>
           </div>{' '}
           <div className="form-floating">
+            <label htmlFor="lastName">Last Name</label>
             <input
               type="text"
               className="form-control"
               placeholder="Last Name"
-              onChange={(e) => (this.state.last_name = e.target.value)}
+              onChange={(e) => this.setState({ last_name: e.target.value })}
             ></input>
-            <label htmlFor="floatingInput">Last Name</label>
           </div>{' '}
           <div className="form-floating">
+            <label htmlFor="email">Email address</label>
             <input
               type="email"
               className="form-control"
               placeholder="name@example.com"
-              onChange={(e) => (this.state.email = e.target.value)}
+              onChange={(e) => this.setState({ email: e.target.value })}
             ></input>
-            <label htmlFor="floatingInput">Email address</label>
           </div>
           <div className="form-floating">
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               className="form-control"
               placeholder="Password"
-              onChange={(e) => (this.state.password = e.target.value)}
+              onChange={(e) => this.setState({ password: e.target.value })}
             ></input>
-            <label>Password</label>
           </div>
           <div className="form-floating">
+            <label htmlFor="passwordConfirm">Password</label>
             <input
               type="password"
               className="form-control"
               placeholder="Password Confirm"
-              onChange={(e) => (this.state.password_confirm = e.target.value)}
+              onChange={(e) => this.setState({ password_confirm: e.target.value })}
             ></input>
-            <label>Password</label>
           </div>
           <button className="w-100 btn btn-lg btn-primary" type="submit">
             Submit

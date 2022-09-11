@@ -1,16 +1,15 @@
 import { Button, TextField } from '@material-ui/core';
 import axios from 'axios';
-import { SyntheticEvent, useEffect, useState } from 'react';
-import Layout from '../Layout';
-import { User } from '../../models/user';
-import { useGetUserQuery, useUpdateUserMutation } from '../../services/user';
+import { Fragment, SyntheticEvent, useEffect, useState } from 'react';
+
+import { useUpdateUserMutation } from '../../services/user';
 
 export default function Profile() {
   const [first_name, setFirstName] = useState('s');
   const [last_name, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const { data, error, isLoading } = useGetUserQuery('');
-  const [updateUser, result] = useUpdateUserMutation();
+  // const { data, error, isLoading } = useGetUserQuery('');
+  const [updateUser] = useUpdateUserMutation();
   useEffect(() => {
     (async () => {
       const { data } = await axios.get('/auth/admin/user');
@@ -23,11 +22,13 @@ export default function Profile() {
   const handleSubmitAccount = async (e: SyntheticEvent) => {
     e.preventDefault();
     const form = { first_name, last_name, email };
-    updateUser(form).unwrap().then(result =>console.log(result));
+    updateUser(form)
+      .unwrap()
+      .then((result) => console.log(result));
   };
 
   return (
-    <Layout>
+    <Fragment>
       <form action="submit" onSubmit={handleSubmitAccount}>
         <h3>Account Information</h3>
         <div className="mt-2">
@@ -76,6 +77,6 @@ export default function Profile() {
           </Button>
         </div>
       </form>
-    </Layout>
+    </Fragment>
   );
 }
