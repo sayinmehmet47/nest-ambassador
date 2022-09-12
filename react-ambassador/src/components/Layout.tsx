@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useGetUserQuery } from '../services/users';
 import { Nav } from './Nav';
 
 type Props = {
@@ -6,6 +7,8 @@ type Props = {
 };
 
 export const Layout = ({ children }: Props) => {
+  const { data, error, isLoading } = useGetUserQuery('');
+
   return (
     <div>
       <Nav />

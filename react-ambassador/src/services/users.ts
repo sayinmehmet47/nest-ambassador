@@ -21,7 +21,7 @@ export const userApi = createApi({
   }),
   endpoints: (builder) => ({
     getUser: builder.query<User, string>({
-      query: () => `/auth/admin/user`,
+      query: () => `/auth/ambassador/user`,
     }),
     updateUser: builder.mutation<User, Partial<User>>({
       query(data) {
