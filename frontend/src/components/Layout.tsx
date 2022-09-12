@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ReactNode, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import { User } from '../models/user';
 
@@ -12,24 +12,24 @@ type Props = {
 };
 
 export default function Layout(props: Props) {
-  const [redirect, setRedirect] = useState(false);
+  // const [redirect, setRedirect] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const { data } = await axios.get('/auth/admin/user');
         setUser(data);
       } catch (error) {
-        setRedirect(true);
+        // setRedirect(true);
       }
     };
     fetchUser();
   }, []);
 
-  if (redirect) {
-    navigate('/login');
-  }
+  // if (redirect) {
+  //   navigate('/login');
+  // }
 
   return (
     <div>
