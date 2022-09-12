@@ -94,6 +94,7 @@ export class AuthController {
       id,
       relations: ['orders', 'orders.order_items'],
     });
+    console.log(user);
 
     const { order, password, ...data } = user;
 

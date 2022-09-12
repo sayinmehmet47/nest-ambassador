@@ -13,8 +13,11 @@ export abstract class AbstractService {
     return await this.repository.findOneBy(options);
   }
 
-  async findOneByRelation({ id, relations }) {
-    return await this.repository.findOne({ where: id, relations: relations });
+  async findOneByRelation(options) {
+    return await this.repository.findOne({
+      where: { id: options.id },
+      relations: options.relations,
+    });
   }
 
   async findOneByTransactionId({ transaction_id, relations }) {
