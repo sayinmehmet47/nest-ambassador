@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login/Login';
 import ProductsFrontend from './pages/ProductsFrontend';
+import Profile from './pages/Profile/Profile';
 import Register from './pages/Register/Register';
 
 function App() {
@@ -9,13 +10,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<ProductsFrontend />} />
+        <Route path="/frontend" element={<ProductsFrontend />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route path="teams" element={<Teams />}>
-            <Route path=":teamId" element={<Team />} />
-            <Route path="new" element={<NewTeamForm />} />
-            <Route index element={<LeagueStandings />} />
-          </Route> */}
+        <Route path="/user" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

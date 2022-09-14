@@ -27,7 +27,6 @@ export const Layout = ({ children }: Props) => {
             <a href="/docs/5.2/getting-started/introduction/">
               getting started guide
             </a>
-            .
           </p>
         </div>
       </footer>

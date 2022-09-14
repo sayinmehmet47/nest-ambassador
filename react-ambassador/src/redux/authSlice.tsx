@@ -20,15 +20,34 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addMatcher(
-      userApi.endpoints.getUser.matchFulfilled,
-      (state, { payload }) => {
-        state.first_name = payload.first_name;
-        state.last_name = payload.last_name;
-        state.email = payload.email;
-        state.is_ambassador = payload.is_ambassador;
-      }
-    );
+    builder
+      .addMatcher(
+        userApi.endpoints.getUser.matchFulfilled,
+        (state, { payload }) => {
+          state.first_name = payload.first_name;
+          state.last_name = payload.last_name;
+          state.email = payload.email;
+          state.is_ambassador = payload.is_ambassador;
+        }
+      )
+      .addMatcher(
+        userApi.endpoints.logoutUser.matchFulfilled,
+        (state, action) => {
+          state.first_name = '';
+          state.last_name = '';
+          state.email = '';
+          state.is_ambassador = false;
+        }
+      )
+      .addMatcher(
+        userApi.endpoints.logoutUser.matchRejected,
+        (state, action) => {
+          console.log('rejected', action);
+        }
+      )
+      .addMatcher(userApi.endpoints.getUser.matchRejected, (state, action) => {
+        console.log('rejected', action);
+      });
   },
 });
 

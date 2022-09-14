@@ -19,6 +19,9 @@ export const userApi = createApi({
     },
     credentials: 'include',
   }),
+  refetchOnReconnect: true,
+  refetchOnMountOrArgChange: 5,
+
   endpoints: (builder) => ({
     getUser: builder.query<User, string>({
       query: () => `/auth/ambassador/user`,
@@ -43,21 +46,21 @@ export const userApi = createApi({
           body,
         };
       },
-      transformResponse: (rawResult: UserInfo) => {
-        return rawResult;
+    }),
+    logoutUser: builder.mutation<any, Partial<User>>({
+      query() {
+        return {
+          url: `auth/ambassador/logout`,
+          method: 'POST',
+        };
       },
     }),
   }),
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
-export const { useGetUserQuery, useUpdateUserMutation, useLoginUserMutation } =
-  userApi;
-
-// url: `/auth/admin/users/info`,
-// method: 'PUT',
-// data: form,
-// headers: {
-//   'Content-type': 'application/json; charset=UTF-8',
-// },
+export const {
+  useGetUserQuery,
+  useUpdateUserMutation,
+  useLoginUserMutation,
+  useLogoutUserMutation,
+} = userApi;
