@@ -2,64 +2,28 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { Layout } from '../components/Layout';
 import { Filters } from '../models/filters';
 import { Product } from '../models/product';
-import { useGetProductsQuery } from '../services/products';
+import { useGetProductsFromBackendQuery } from '../services/products';
 
-const ProductsFrontend = () => {
+const ProductsBackend = () => {
   const [filters, setFilters] = useState<Filters>({
     search: '',
     sort: '',
     page: 1,
   });
-  const { data: productData, isLoading, isSuccess } = useGetProductsQuery('');
-
+  const { data: productData, isLoading } = useGetProductsFromBackendQuery({
+    search: filters.search,
+    sort: filters.sort,
+    page: filters.page,
+  });
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-
-  const [lastPage, setLastPage] = useState(0);
-  const perPage = 9;
+  const [last_page, setLastPage] = useState(0);
 
   useEffect(() => {
-    setFilteredProducts(productData);
-
-    let products =
-      productData &&
-      productData.filter(
-        (p: Product) =>
-          p.title.toLowerCase().indexOf(filters.search.toLowerCase()) >= 0 ||
-          p.description.toLowerCase().indexOf(filters.search.toLowerCase()) >= 0
-      );
-
-    if (filters.sort === 'asc') {
-      products?.sort((a: any, b: any) => {
-        if (a.price > b.price) {
-          return 1;
-        }
-
-        if (a.price < b.price) {
-          return -1;
-        }
-
-        return 0;
-      });
-    } else if (filters.sort === 'desc') {
-      products?.sort((a: any, b: any) => {
-        if (a.price > b.price) {
-          return -1;
-        }
-
-        if (a.price < b.price) {
-          return 1;
-        }
-
-        return 0;
-      });
-    }
-    const productsLength = Math.ceil(products?.length);
-    setLastPage(productsLength as number);
-    setLastPage(Math.ceil(products?.length / perPage));
-    setFilteredProducts(
-      products?.slice(0, filters.page * perPage) as Array<Product>
+    setFilteredProducts((prev) =>
+      productData ? prev.concat(productData.data) : []
     );
-  }, [filters, productData]);
+    setLastPage(productData ? productData.last_page : 0);
+  }, [productData]);
 
   const handleSearch = (e: any) => {
     setFilters({
@@ -67,6 +31,7 @@ const ProductsFrontend = () => {
       page: 1,
       search: e.target.value,
     });
+    setFilteredProducts([]);
   };
 
   const sort = (sort: string) => {
@@ -75,6 +40,11 @@ const ProductsFrontend = () => {
       page: 1,
       sort,
     });
+    setFilteredProducts([]);
+  };
+
+  const handleLoadMore = () => {
+    setFilters({ ...filters, page: filters.page + 1 });
   };
 
   if (isLoading) {
@@ -180,10 +150,10 @@ const ProductsFrontend = () => {
           <div className="d-grid gap-2 container">
             <button
               className={`btn btn-success ${
-                lastPage === filters.page ? 'disabled' : ''
+                filters.page === last_page ? 'disabled' : ''
               }`}
               type="button"
-              onClick={() => setFilters({ ...filters, page: filters.page + 1 })}
+              onClick={handleLoadMore}
             >
               LOAD MORE
             </button>
@@ -194,4 +164,4 @@ const ProductsFrontend = () => {
   );
 };
 
-export default ProductsFrontend;
+export default ProductsBackend;

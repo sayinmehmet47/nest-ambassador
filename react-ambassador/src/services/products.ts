@@ -8,6 +8,13 @@ export interface ProductInfo {
   error?: string;
 }
 
+export interface BackendProducts {
+  data: Product[];
+  total: number;
+  page: number;
+  last_page: number;
+}
+
 // Define a service using a base URL and expected endpoints
 export const productApi = createApi({
   reducerPath: 'productApi',
@@ -24,6 +31,19 @@ export const productApi = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => `/products/frontend`,
+    }),
+    getProductsFromBackend: builder.query<
+      BackendProducts,
+      { search: string; sort: string; page: number }
+    >({
+      query: (data) => {
+        const { search, sort, page } = data;
+        return {
+          url: `/products/backend`,
+          method: 'GET',
+          params: { search, sort, page },
+        };
+      },
     }),
     // updateUser: builder.mutation<Product, Partial<Product>>({
     //   query(data) {
@@ -56,4 +76,5 @@ export const productApi = createApi({
   }),
 });
 
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery, useGetProductsFromBackendQuery } =
+  productApi;

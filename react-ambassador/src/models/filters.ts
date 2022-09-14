@@ -1,5 +1,5 @@
 export interface Filters {
-  s: string;
+  search: string;
   sort: string;
   page: number;
 }

@@ -72,7 +72,6 @@ export class Order {
   }
   @Expose()
   get ambassador_revenue(): number {
-    console.log(this.order_items, 'dsd');
     return this.order_items.reduce((s, o) => s + o.ambassador_revenue, 0);
   }
 }
