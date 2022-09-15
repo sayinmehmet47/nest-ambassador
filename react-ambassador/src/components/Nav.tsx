@@ -29,9 +29,14 @@ export const Nav = () => {
 
         <div className="col-md-3 text-end d-flex justify-content-center align-items-center">
           {user.first_name ? (
-            <a href="/user" className="nav-link px-2 link-secondary ">
-              {user.first_name}
-            </a>
+            <div className="d-flex text-secondary">
+              <NavLink to="/user" className="nav-link px-2 fw-bold">
+                {user.first_name}
+              </NavLink>
+              <NavLink to="/stats" className="nav-link px-2 fw-bold">
+                Stats
+              </NavLink>
+            </div>
           ) : (
             <NavLink to={'/login'}>
               <button type="button" className="btn btn-outline-primary me-2">

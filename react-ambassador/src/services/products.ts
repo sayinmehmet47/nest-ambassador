@@ -45,16 +45,21 @@ export const productApi = createApi({
         };
       },
     }),
-    // updateUser: builder.mutation<Product, Partial<Product>>({
-    //   query(data) {
-    //     const { ...body } = data;
-    //     return {
-    //       url: `/auth/admin/users/info`,
-    //       method: 'PUT',
-    //       body,
-    //     };
-    //   },
-    // }),
+    createLinks: builder.mutation<number[], any>({
+      query(data) {
+        return {
+          url: `/links`,
+          method: 'POST',
+          body: {
+            products: data,
+          },
+        };
+      },
+    }),
+
+    getStats: builder.query({
+      query: () => `/stats`,
+    }),
     // loginUser: builder.mutation<UserInfo, Partial<Product>>({
     //   query(data) {
     //     const { ...body } = data;
@@ -76,5 +81,9 @@ export const productApi = createApi({
   }),
 });
 
-export const { useGetProductsQuery, useGetProductsFromBackendQuery } =
-  productApi;
+export const {
+  useGetProductsQuery,
+  useGetProductsFromBackendQuery,
+  useCreateLinksMutation,
+  useGetStatsQuery,
+} = productApi;
