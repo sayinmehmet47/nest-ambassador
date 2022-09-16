@@ -16,7 +16,7 @@ Redis is used for caching.
         cd api
         npm install
         docker compose up
-        docker-compose exec backend sh  // use for go inside the docker container and seed the database
+        docker-compose exec backend sh  // used for going inside the docker container and seed the database
         npm run seed:ambassador
         npm run seed:product
         npm run seed:orders
