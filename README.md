@@ -33,3 +33,5 @@ Redis is used for caching.
         npm install
         npm start
 ```
+![image](https://user-images.githubusercontent.com/75525090/190682653-3ffcb615-d024-47f1-bf2b-5f2b1958077a.png)
+
