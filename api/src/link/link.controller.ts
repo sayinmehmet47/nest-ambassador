@@ -26,7 +26,6 @@ export class LinkController {
   @UseGuards(AuthGuard)
   @Post('/ambassador/links')
   async create(@Body('products') products: number[], @Req() request: Request) {
-    console.log(this.authService.user(request));
     const user = await this.authService.user(request);
     return this.linkService.create({
       code: Math.random().toString(16).substring(6),

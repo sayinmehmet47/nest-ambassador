@@ -83,6 +83,7 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get(['admin/user', 'ambassador/user'])
   async user(@Req() request: Request) {
+    console.log('fdf');
     const cookie = request.cookies['jwt'];
     const { id } = await this.jwtService.verifyAsync(cookie);
 
@@ -94,7 +95,6 @@ export class AuthController {
       id,
       relations: ['orders', 'orders.order_items'],
     });
-    console.log(user);
 
     const { order, password, ...data } = user;
 
