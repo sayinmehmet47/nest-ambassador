@@ -16,19 +16,19 @@
         npm run seed:ambassador
         npm run seed:product
         npm run seed:orders
-    ```
+```
 
 ### start the frontend
 
-    ```
+ ```js
         cd frontend
         npm install
         npm start
-    ```
+ ```
 
 ### start react-ambassador
 
-    ```
+    ```js
         cd react-ambassador
         npm install
         npm start
