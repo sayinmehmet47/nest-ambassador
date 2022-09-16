@@ -27,9 +27,8 @@
  ```
 
 ### start react-ambassador
-
-    ```js
+```js
         cd react-ambassador
         npm install
         npm start
-    ```
+```
