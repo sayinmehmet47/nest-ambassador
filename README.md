@@ -8,7 +8,7 @@
 
 ## start the api
 
-    ```js
+    ```
         cd api
         npm install
         docker compose up
@@ -20,7 +20,7 @@
 
 ### start the frontend
 
-    ```js
+    ```
         cd frontend
         npm install
         npm start
@@ -28,7 +28,7 @@
 
 ### start react-ambassador
 
-    ```js
+    ```
         cd react-ambassador
         npm install
         npm start
