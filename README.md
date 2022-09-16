@@ -8,7 +8,7 @@
 
 ## start the api
 
-    ```
+```js
         cd api
         npm install
         docker compose up
