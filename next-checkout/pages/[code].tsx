@@ -65,7 +65,10 @@ export default function Home() {
               <div className="flex-col flex-1">
                 <label
                   htmlFor="last_name"
-                  className="mb-2 font-medium text-sm block text-gray-900"
+                  className={clsx(
+                    { 'text-red-400': errors.last_name },
+                    'block mb-2 text-sm font-medium text-gray-900'
+                  )}
                 >
                   Last name
                 </label>
@@ -81,7 +84,10 @@ export default function Home() {
             <div className="flex flex-col mt-2">
               <label
                 htmlFor="email"
-                className="mb-2 font-medium text-sm block text-gray-900"
+                className={clsx(
+                  { 'text-red-400': errors.email },
+                  'block mb-2 text-sm font-medium text-gray-900'
+                )}
               >
                 Email
               </label>
@@ -95,7 +101,10 @@ export default function Home() {
             <div className="flex flex-col mt-2">
               <label
                 htmlFor="address"
-                className="mb-2 font-medium text-sm block text-gray-900"
+                className={clsx(
+                  { 'text-red-400': errors.address },
+                  'block mb-2 text-sm font-medium text-gray-900'
+                )}
               >
                 Address
               </label>
@@ -110,7 +119,10 @@ export default function Home() {
               <div className="flex-1 flex-col ">
                 <label
                   htmlFor="country"
-                  className="mb-2 font-medium text-sm block text-gray-900"
+                  className={clsx(
+                    { 'text-red-400': errors.country },
+                    'block mb-2 text-sm font-medium text-gray-900'
+                  )}
                 >
                   Country
                 </label>
@@ -124,7 +136,10 @@ export default function Home() {
               <div className="flex-col flex-1">
                 <label
                   htmlFor="city"
-                  className="mb-2 font-medium text-sm block text-gray-900"
+                  className={clsx(
+                    { 'text-red-400': errors.city },
+                    'block mb-2 text-sm font-medium text-gray-900'
+                  )}
                 >
                   City
                 </label>
@@ -140,7 +155,10 @@ export default function Home() {
               <div className="flex-1 flex-col ">
                 <label
                   htmlFor="zip"
-                  className="mb-2 font-medium text-sm block text-gray-900"
+                  className={clsx(
+                    { 'text-red-400': errors.zip },
+                    'block mb-2 text-sm font-medium text-gray-900'
+                  )}
                 >
                   Zip
                 </label>
@@ -154,7 +172,10 @@ export default function Home() {
               <div className="flex-col flex-1">
                 <label
                   htmlFor="code"
-                  className="mb-2 font-medium text-sm block text-gray-900"
+                  className={clsx(
+                    { 'text-red-400': errors.code },
+                    'block mb-2 text-sm font-medium text-gray-900'
+                  )}
                 >
                   Code
                 </label>
