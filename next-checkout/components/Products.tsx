@@ -1,6 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { Basket, Product } from '../pages/models/interfaces';
+import { Product } from '../pages/models/interfaces';
 import { useBasket } from '../zustand';
 
 type Props = {

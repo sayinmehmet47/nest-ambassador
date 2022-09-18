@@ -1,19 +1,23 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { clsx } from 'clsx';
-
 import { IFormInput } from './models/interfaces';
 import { schema } from './models/validatin';
 import { Products } from '../components/Products';
+import { useBasket } from '../zustand';
+import axios from 'axios';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
+declare var Stripe;
+
 export default function Home() {
   const router = useRouter();
+  const { mutate } = useSWRConfig();
   const { code } = router.query;
+  const baskets = useBasket((state) => state.baskets);
 
   const { data, error } = useSWR(
     `http://localhost:8000/api/checkout/links/${code}`,
@@ -27,7 +31,26 @@ export default function Home() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: IFormInput) => console.log(data);
+  const onSubmit = async (data: IFormInput) => {
+    const dataToSend = baskets.map((b) => {
+      return { product_id: b.id, quantity: b.quantity };
+    });
+    const orders = { ...data, products: dataToSend };
+    try {
+      const { data } = await axios.post(
+        'http://localhost:8000/api/checkout/orders',
+        orders
+      );
+      const stripe = new Stripe(
+        'pk_test_51LP6aiGCJMINMCUu3IORbXLsC0BdY227snNxLUSOcnAGk7PKfvNj9GdEkrddwqFoUc7e7VzmIaLuL1NTX6bz83hn00uJ2Lz06v'
+      );
+      stripe.redirectToCheckout({
+        sessionId: data.id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (error) return 'An error has occurred.';
   if (!data) return 'Loading...';

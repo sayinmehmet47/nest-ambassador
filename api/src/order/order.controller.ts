@@ -70,8 +70,8 @@ export class OrderController {
       order = await queryRunner.manager.save(order);
 
       const line_items = [];
-
       for (const p of body.products) {
+        console.log(p);
         const product: Product = await this.productService.findOne({
           id: p.product_id,
         });
@@ -101,25 +101,24 @@ export class OrderController {
           },
           quantity: p.quantity,
         });
-
-        const source = await this.stripeClient.checkout.sessions.create({
-          payment_method_types: ['card'],
-          mode: 'payment',
-          line_items,
-          success_url: `${this.configService.get(
-            'CHECKOUT_URL',
-          )}/success?source={CHECKOUT_SESSION_ID}`,
-          cancel_url: `${this.configService.get('CHECKOUT_URL')}/api/error`,
-        });
-
-        order.transaction_id = source['id'];
-
-        await queryRunner.manager.save(order);
-        await queryRunner.commitTransaction();
-        return source;
       }
-
+      const source = await this.stripeClient.checkout.sessions.create({
+        payment_method_types: ['card'],
+        mode: 'payment',
+        line_items,
+        success_url: `${this.configService.get(
+          'CHECKOUT_URL',
+        )}/success?source={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${this.configService.get('CHECKOUT_URL')}/error`,
+      });
+      order.transaction_id = source['id'];
       await queryRunner.manager.save(order);
+
+      await queryRunner.commitTransaction();
+
+      return source;
+
+      // await queryRunner.manager.save(order);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new BadRequestException();
